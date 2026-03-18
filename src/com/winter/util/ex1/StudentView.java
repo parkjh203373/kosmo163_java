@@ -1,10 +1,12 @@
 package com.winter.util.ex1;
 
+import java.util.ArrayList;
+
 public class StudentView {
 	
-	public void view(StudentDTO[] ar) {
-		for(int i=0; i<ar.length; i++) {
-			this.view(ar[i]);
+	public void view(ArrayList<StudentDTO> ar) {
+		for(int i=0; i<ar.size(); i++) {
+			this.view(ar.get(i));
 		}
 		
 	}
