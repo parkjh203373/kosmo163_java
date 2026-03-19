@@ -13,7 +13,7 @@ public class StudentController {
 		
 		boolean flag = true;
 		while(flag) {
-			System.out.println("1. 학생 정보 초기화, 2. 학생 정보 출력, 3. 학생 정보 검색, 4. 학생 정보 추가, 5. 학생 정보 삭제, 6. 종 료");
+			System.out.println("1. 학생 정보 초기화, 2. 학생 정보 출력, 3. 학생 정보 검색, 4. 학생 정보 추가, 5. 학생 정보 삭제, 6. 학생 정보 백업, 7. 종 료");
 			int num = sc.nextInt();
 			if(num==1) {
 				ar = ss.init();
@@ -30,6 +30,8 @@ public class StudentController {
 				ar = ss.add(ar);
 			}else if(num==5) {
 				ss.delete(ar);
+			}else if(num==6) {
+				ss.backup();
 			}else {
 				break;
 			}

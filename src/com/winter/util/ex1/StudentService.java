@@ -1,5 +1,9 @@
 package com.winter.util.ex1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -14,7 +18,70 @@ public class StudentService {
 		this.sc = new Scanner(System.in);
 	}
 	
+	public void backup() {
+	    // 학생들의 정보를 info.txt에 저장하기
+	    File file = new File("C:\\PJH\\sub1\\sub2\\info.txt");
+
+	    try {
+	    	FileWriter fw = new FileWriter(file, true);
+
+        	System.out.println("학생 이름 입력");
+    	    String name = sc.next();
+
+    	    System.out.println("국어 점수 입력");
+    	    int kor = sc.nextInt();
+
+    	    System.out.println("영어 점수 입력");
+    	    int eng = sc.nextInt();
+
+    	    System.out.println("수학 점수 입력");
+    	    int math = sc.nextInt();
+
+    	    StudentDTO sd = new StudentDTO();
+    	    sd.setName(name);
+    	    sd.setKor(kor);
+    	    sd.setEng(eng);
+    	    sd.setMath(math);
+    	    
+    	    String str = sd.getName() + "-" + sd.getKor() + "-" + sd.getEng() + "-" + sd.getMath();
+            fw.write("\n" + str);
+            fw.flush();
+            
+            System.out.println("학생 정보가 info.txt에 저장되었습니다.");
+	            
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public ArrayList<StudentDTO> init() {
+		//info.txt의 내용을 출력
+		File file = new File("C:\\PJH\\sub1\\sub2\\info.txt");
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		
+		try {
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			
+			String s = null;
+			while((s = br.readLine()) != null) {
+				String[] ar = s.split("-");
+				StudentDTO studentDTO = new StudentDTO();
+				studentDTO.setName(ar[0]);
+				studentDTO.setKor(Integer.parseInt(ar[1]));
+				studentDTO.setEng(Integer.parseInt(ar[2]));
+				studentDTO.setMath(Integer.parseInt(ar[3]));
+				list.add(studentDTO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
+	public ArrayList<StudentDTO> initold() {
 		//data 파싱 작업
 		System.out.println("==========================");
 		StringTokenizer st = new StringTokenizer(this.data, "-");
@@ -91,10 +158,9 @@ public class StudentService {
 		for(int i=0; i<ar.size(); i++) {
 			if(name.equalsIgnoreCase(ar.get(i).getName())) {
 				ar.remove(i);
+				System.out.println(name + " 학생 정보 삭제 완료");
 			}
 		}
-		
-		System.out.println(name + " 학생 정보 삭제 완료");
 		
 		
 	}
